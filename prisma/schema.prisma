@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TrackingEvent {
+  id        BigInt   @id @default(autoincrement()) @db.BigInt
+  contextId String   @db.VarChar(26)
+  prevTxId  String?   @db.VarChar(26)
+  txId      String   @db.VarChar(26)
+  txType    String   @db.VarChar(20)
+  txSrc     String   @db.VarChar(20)
+  objId     String   @db.VarChar(26)
+  objType   String   @db.VarChar(20)
+  timestamp DateTime @default(now()) @db.Timestamp()
+  metadata  Json?     @db.JsonB
+
+  @@map("tracking_events")
+}
