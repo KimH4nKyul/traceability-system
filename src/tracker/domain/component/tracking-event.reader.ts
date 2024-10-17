@@ -10,10 +10,11 @@ export class TrackingEventReader {
     private readonly trackingEventReadRepository: TrackingEventReadRepository,
   ) {}
 
-  async previousTxId(contextId: string): Promise<string> {
-    return (await this.context(contextId)).sort(
+  async previousTxId(trackingEvent: TrackingEvent): Promise<TrackingEvent> {
+    const { prevTxId } = (await this.context(trackingEvent.contextId)).sort(
       (a, b) => b.timestamp - a.timestamp,
-    )[0].prevTxId;
+    )[0];
+    return trackingEvent.addPreviousTxId(prevTxId);
   }
 
   async context(contextId: string): Promise<TrackingEvents> {

@@ -19,10 +19,7 @@ export class TrackingEventRecordService {
       systemTimeHolder,
       ulidHolder,
     );
-    const prevTxId = await this.trackingEventReader.previousTxId(
-      trackingEvent.contextId,
-    );
-    trackingEvent = trackingEvent.addPreviousTxId(prevTxId);
+    trackingEvent = await this.trackingEventReader.previousTxId(trackingEvent);
     await this.trackingEventRecorder.execute(trackingEvent);
   }
 }
