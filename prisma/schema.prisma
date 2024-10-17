@@ -19,8 +19,8 @@ model TrackingEvent {
   txId      String   @db.VarChar(26)
   txType    String   @db.VarChar(20)
   txSrc     String   @db.VarChar(20)
-  objId     String   @db.VarChar(26)
-  objType   String   @db.VarChar(20)
+  objId     String?   @db.VarChar(26)
+  objType   String?   @db.VarChar(20)
   timestamp DateTime @default(now()) @db.Timestamp()
   metadata  Json?     @db.JsonB
 
