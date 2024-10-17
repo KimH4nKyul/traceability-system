@@ -3,6 +3,7 @@ import { TimeHolder } from 'src/core/holder/interface/time.holder';
 import { IdHolder } from 'src/core/holder/interface/id.holder';
 
 export class TrackingEventInterface {
+  id?: string;
   contextId: string;
   prevTxId?: string | null;
   txId: string;
@@ -25,6 +26,7 @@ export class TrackingEventInterface {
 }
 
 export class TrackingEvent {
+  id?: string;
   contextId: string;
   prevTxId?: string | null;
   txId: string;
@@ -36,6 +38,7 @@ export class TrackingEvent {
   metadata?: Record<string, any> | null;
 
   constructor({
+    id,
     contextId,
     prevTxId,
     txId,
@@ -46,6 +49,7 @@ export class TrackingEvent {
     timestamp,
     metadata,
   }: TrackingEventInterface) {
+    if (id) this.id = id;
     this.contextId = contextId;
     this.prevTxId = prevTxId;
     this.txId = txId;

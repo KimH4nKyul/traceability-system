@@ -11,15 +11,15 @@ export class TrackingEventReader {
   ) {}
 
   async previousTxId(trackingEvent: TrackingEvent): Promise<TrackingEvent> {
-    const { prevTxId } = (await this.context(trackingEvent.contextId)).sort(
-      (a, b) => b.timestamp - a.timestamp,
-    )[0];
+    const events = await this.context(trackingEvent.contextId);
+    if (events.length === 0) return trackingEvent.addPreviousTxId(null);
+
+    const prevTxId = events.sort((a, b) => b.timestamp - a.timestamp)[0].txId;
     return trackingEvent.addPreviousTxId(prevTxId);
   }
 
   async context(contextId: string): Promise<TrackingEvents> {
-    const events =
-      await this.trackingEventReadRepository.findByContextId(contextId);
+    const events = await this.trackingEventReadRepository.findById(contextId);
 
     return events;
   }

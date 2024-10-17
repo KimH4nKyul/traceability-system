@@ -6,6 +6,6 @@ export class TrackingEventRecordCommand {
   txSrc: string;
   objId?: string | null;
   objType?: string | null;
-  timestamp: Date;
+  timestamp?: Date | null;
   metadata?: Record<string, any> | null;
 }
