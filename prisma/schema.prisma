@@ -14,8 +14,7 @@ datasource db {
 }
 
 model TrackingEvent {
-  id        BigInt   @id @default(autoincrement()) @db.BigInt
-  contextId String   @db.VarChar(26)
+  contextId String   @id @db.VarChar(26)
   prevTxId  String?   @db.VarChar(26)
   txId      String   @db.VarChar(26)
   txType    String   @db.VarChar(20)

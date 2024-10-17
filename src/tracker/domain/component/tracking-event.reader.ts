@@ -10,11 +10,16 @@ export class TrackingEventReader {
     private readonly trackingEventReadRepository: TrackingEventReadRepository,
   ) {}
 
+  async previousTxId(contextId: string): Promise<string> {
+    return (await this.context(contextId)).sort(
+      (a, b) => b.timestamp - a.timestamp,
+    )[0].prevTxId;
+  }
+
   async context(contextId: string): Promise<TrackingEvents> {
     const events =
       await this.trackingEventReadRepository.findByContextId(contextId);
-    if (events.length === 0)
-      throw new TrackingEventNotFoundError(`ContextId: ${contextId}`);
+
     return events;
   }
 

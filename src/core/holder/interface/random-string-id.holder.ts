@@ -1,3 +1,1 @@
-export interface RandomStringIdHolder {
-  generate(): Promise<string>;
-}
+export type RandomStringIdHolder = () => Promise<string>;
