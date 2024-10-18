@@ -14,11 +14,8 @@ export class TrackingEventRecordService {
   ) {}
 
   async record(command: TrackingEventRecordCommand): Promise<void> {
-    let trackingEvent = await TrackingEvent.from(
-      command,
-      systemTimeHolder,
-      ulidHolder,
-    );
+    const [txId, timestamp] = [await ulidHolder(), await systemTimeHolder()];
+    let trackingEvent = TrackingEvent.from(command, txId, timestamp);
     trackingEvent = await this.trackingEventReader.previousTxId(trackingEvent);
     await this.trackingEventRecorder.execute(trackingEvent);
   }
