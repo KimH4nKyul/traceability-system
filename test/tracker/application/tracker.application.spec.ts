@@ -18,7 +18,7 @@ import {
   TrackingEvent,
 } from 'src/tracker/domain/tracking-event';
 
-describe('🎯 Tracker Application Test', () => {
+describe('🎯 Tracker Application 테스트', () => {
   let sut: TrackerApplication;
 
   const store: Map<string, TrackingEvent> = new Map();

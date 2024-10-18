@@ -1,6 +1,4 @@
 import { TrackingEventRecordCommand } from './dto/command/tracking-event.record.command';
-import { TimeHolder } from 'src/core/holder/interface/time.holder';
-import { IdHolder } from 'src/core/holder/interface/id.holder';
 
 export class TrackingEventInterface {
   id?: string;
@@ -61,15 +59,15 @@ export class TrackingEvent {
     this.metadata = metadata;
   }
 
-  static async from(
+  static from(
     command: TrackingEventRecordCommand,
-    timeHolder: TimeHolder,
-    idHolder: IdHolder,
-  ): Promise<TrackingEvent> {
+    txId: string,
+    timestamp: number,
+  ): TrackingEvent {
     return new TrackingEvent({
       ...command,
-      txId: await idHolder(),
-      timestamp: await timeHolder(),
+      txId,
+      timestamp,
     });
   }
 
